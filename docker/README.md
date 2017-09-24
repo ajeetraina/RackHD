@@ -134,3 +134,51 @@ $ ./scripts/stop_services.bash       # Stop all RackHD docker containers.
 $ ./scripts/remove_services.bash     # Remove all RackHD docker containers
 ```
 
+## Using Docker Machine
+
+
+**Prerequisites:**
+  * Use Docker Machine to build up a boot2docker VM:
+  
+  ```
+  $docker-machine create -d virtualbox vm1
+  ```
+ 
+  * SSH into vm1
+  
+  ```
+  $docker-machine ssh vm1
+  ```
+  
+  * Switch to root user
+  
+  ```
+  $sudo -i
+  ```
+  
+  * Install docker-compose on this VM1
+  
+  ```
+  #!/bin/bash
+
+  $curl -L https://github.com/docker/compose/releases/download/1.16.1/docker-compose-`uname -s`-`uname -m` > /u     
+  sr/local/bin/docker-compose
+  chmod +x /usr/local/bin/docker-compose
+  ```
+  
+  
+  * Please make sure vm.max_map_count >= 262144 
+  ```
+  sudo sysctl -w vm.max_map_count=262144
+
+   ```
+   
+   * Clone the RackHD github repository recursively
+   
+   ```
+   $git clone --recursive https:/github.com/rackhd/RackHD
+   ```
+   
+$ cd RackHD/docker                            # TAG can be a release version, if not set default: latest
+$ sudo TAG=${TAG} docker-compose pull         # Download prebuilt docker images.
+$ sudo TAG=${TAG} docker-compose up           # Create containers and Run RackHD.
