@@ -168,9 +168,9 @@ $ ./scripts/remove_services.bash     # Remove all RackHD docker containers
   
   
   * Please make sure vm.max_map_count >= 262144 
+  
   ```
   sudo sysctl -w vm.max_map_count=262144
-
    ```
    
    * Clone the RackHD github repository recursively
@@ -179,6 +179,8 @@ $ ./scripts/remove_services.bash     # Remove all RackHD docker containers
    $git clone --recursive https:/github.com/rackhd/RackHD
    ```
    
+   ```
 $ cd RackHD/docker                            # TAG can be a release version, if not set default: latest
 $ sudo TAG=${TAG} docker-compose pull         # Download prebuilt docker images.
 $ sudo TAG=${TAG} docker-compose up           # Create containers and Run RackHD.
+```
